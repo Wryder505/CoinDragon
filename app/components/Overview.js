@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import Image from 'next/image'
 
@@ -11,7 +11,8 @@ import up from '../assets/up.svg'
 import down from '../assets/down.svg'
 import add from '../assets/add.svg'
 
-const Overview = ({ account, setAccount, markets, trackedTokens, setTrackedTokens }) => {
+const Overview = ({ account, setAccount, markets, trackedTokens, setTrackedTokens, tokens }) => {
+	const [value, setValue] = useState(0)
 
 	const [isAccountModalOpen, setIsAccountModalOpen] = useState(false)
 	const [isAddTokenModalOpen, setIsAddTokenModalOpen] = useState(false)
@@ -27,6 +28,22 @@ const Overview = ({ account, setAccount, markets, trackedTokens, setTrackedToken
 				setIsAccountModalOpen(true)
 			}
 		}
+
+	  const calculateValue = () => {
+    	const total = tokens.reduce((acc, token) => {
+      	return token.balance === 0 ? acc : acc + token.value
+    }, 0)
+
+    setValue(total)
+  }
+
+		useEffect(() => {
+			if (tokens.length === 0) {
+				setValue(0)
+			} else {
+				calculateValue()
+			}
+		})
 
 	return (
 		<div className="overview">
@@ -62,7 +79,7 @@ const Overview = ({ account, setAccount, markets, trackedTokens, setTrackedToken
 
 			<div className="overview__total">
 				<h3>Total Value</h3>
-				<p>$0.00</p>
+				<p>{value.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</p>
 			</div>
 
 			<div className="overview__change">
