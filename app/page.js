@@ -87,9 +87,9 @@ export default function Home() {
       <div className="details">
         <div className="divider"></div>
 
-        <Holdings tokens={tokens}/>
+        <Holdings tokens={tokens} />
 
-        <Values />
+        <Values tokens={tokens} />
 
         <Assets />
 
