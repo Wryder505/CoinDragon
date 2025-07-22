@@ -44,7 +44,7 @@ export default function Home() {
     // Balances
     const balanceSnapshot = {
       'ethereum': 2.0114677685473358,
-      'usd-coin': 1.32,
+      'usd-coin': 1600.32,
     }
     const balance = balanceSnapshot[id]
 
@@ -91,7 +91,7 @@ export default function Home() {
 
         <Values tokens={tokens} />
 
-        <Assets />
+        <Assets tokens={tokens} setTokens={setTokens}/>
 
       </div>
     </main>
