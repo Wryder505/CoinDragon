@@ -4,6 +4,10 @@ import { useState, useEffect } from 'react'
 
 // Components
 import Overview from './components/Overview'
+import Holdings from './components/Holdings'
+import Values from './components/Values'
+import Assets from './components/Assets'
+
 
 // Snapshot Data
 import marketSnapshot from './snapshots/markets.json'
@@ -39,8 +43,8 @@ export default function Home() {
 
     // Balances
     const balanceSnapshot = {
-      'ethereum': 0.0114677685473358,
-      'usd-coin': 0.00,
+      'ethereum': 2.0114677685473358,
+      'usd-coin': 1.32,
     }
     const balance = balanceSnapshot[id]
 
@@ -82,6 +86,12 @@ export default function Home() {
 
       <div className="details">
         <div className="divider"></div>
+
+        <Holdings tokens={tokens}/>
+
+        <Values />
+
+        <Assets />
 
       </div>
     </main>
