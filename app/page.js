@@ -25,7 +25,7 @@ export default function Home() {
   const getMarkets = async () => {
     const ROOT_URL = `https://api.coingecko.com/api/v3`
     const ENDPOINT = `/coins/markets`
-    const AMOUNT = 25
+    const AMOUNT = 100
     const ARGUMENTS = `?vs_currency=usd&category=ethereum-ecosystem&order=market_cap_desc&per_page=${AMOUNT}&page=1&sparkline=false&locale=en`
     
     const response = await fetch(ROOT_URL + ENDPOINT + ARGUMENTS)
