@@ -58,7 +58,7 @@ export default function Home() {
     const prices = (await pricesResponse.json()).prices
 
     // Fetch balance
-    const ETH_RPC_URL = "https://rpc.ankr.com/eth"
+    const ETH_RPC_URL = "https://rpc.ankr.com/eth/328aa6f6198160593b80fad2e40d802f0a066d4e89b9e8fd724f45adf8ce777d"
     const PROVIDER = new ethers.JsonRpcProvider(ETH_RPC_URL)
     const ABI = ["function balanceOf(address) view returns (uint)"]
 
