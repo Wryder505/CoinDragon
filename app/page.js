@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react'
+import { ethers } from 'ethers'
 
 // Components
 import Overview from './components/Overview'
@@ -49,19 +50,26 @@ export default function Home() {
 
     const details = tokenSnapshot.detail_platforms.ethereum
 
-    // Prices
+    // Fetch token 7 day average prices via API request
     const PRICES_ENDPOINT = `/coins/${id}/market_chart/`
     const PRICES_ARGUMENTS = `?vs_currency=usd&days=7&interval=daily`
 
     const pricesResponse = await fetch(ROOT_URL + PRICES_ENDPOINT + PRICES_ARGUMENTS)
     const prices = (await pricesResponse.json()).prices
 
-    // Balances
-    const balanceSnapshot = {
-      'ethereum': 2.0114677685473358,
-      'usd-coin': 1600.32,
+    // Fetch balance
+    const ETH_RPC_URL = "https://rpc.ankr.com/eth"
+    const PROVIDER = new ethers.JsonRpcProvider(ETH_RPC_URL)
+    const ABI = ["function balanceOf(address) view returns (uint)"]
+
+    let balance
+
+    if (details) {
+      const contract = new ethers.Contract(details.contract_address, ABI, PROVIDER)
+      balance = Number(ethers.formatUnits(await contract.balanceOf(account), details.decimal_place))
+    } else {
+      balance = Number(ethers.formatUnits(await PROVIDER.getBalance(account), 18))
     }
-    const balance = balanceSnapshot[id]
 
     // Token Object
     const token = {
